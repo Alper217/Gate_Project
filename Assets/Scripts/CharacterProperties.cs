@@ -7,4 +7,5 @@ public class CharacterProperties : MonoBehaviour
     [SerializeField] int Height;
     [SerializeField] int Weight;
     [SerializeField] int Age;
+    [SerializeField] int Price;
 }
