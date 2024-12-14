@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class ButtonSettings : MonoBehaviour
 {
+    [SerializeField] GameObject bookIcon;
     [SerializeField] TextMeshProUGUI _textMeshPro;
     [SerializeField] GameObject _gameObject;
     public int price = 0;
@@ -27,5 +28,6 @@ public class ButtonSettings : MonoBehaviour
     public void BookClose()
     {
         _gameObject.SetActive(false);
+        bookIcon.SetActive(true);
     }
 }
