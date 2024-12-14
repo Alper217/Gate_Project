@@ -1,13 +1,24 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EntitiesMovement : MonoBehaviour
 {
-    public GameObject[] objects;
-    private int currentObjectIndex = 0;
-    private bool isMoving = false;
-    private Vector3 startPosition;
-    private Vector3 targetPosition;
+    public GameObject[] objects; // Objeler listesi
+    public int currentObjectIndex = 0; // Þu anki obje indeksi
+    private bool isMoving = false; // Hareket kontrolü
+
+    private Vector3 startPosition; // Baþlangýç pozisyonu
+    private Vector3 targetPosition; // Hedef pozisyon
+
+    public float bobbingAmplitude = 0.2f; // Yüksekliðin genliði (yukarý-aþaðý hareket miktarý)
+    public float bobbingSpeed = 3f; // Yüksekliðin hýzýný ayarlar
+
+    private Renderer objRenderer;
+    private Color originalColor;
+
+    public bool checkPrice = false;
+    public GameObject checkbutton;
 
     void Update()
     {
@@ -21,6 +32,11 @@ public class EntitiesMovement : MonoBehaviour
     {
         isMoving = true;
 
+        objRenderer = obj.GetComponent<Renderer>();
+        originalColor = objRenderer.material.color;
+
+        objRenderer.material.color = Color.black;
+
         startPosition = obj.transform.position;
         targetPosition = startPosition + new Vector3(16.2f, 0, 0);
 
@@ -31,11 +47,25 @@ public class EntitiesMovement : MonoBehaviour
         {
             float distanceCovered = (Time.time - startTime) * 10;
             float fractionOfJourney = distanceCovered / journeyLength;
-            obj.transform.position = Vector3.Lerp(startPosition, targetPosition, fractionOfJourney);
+
+            // Yatay hareket
+            Vector3 newPosition = Vector3.Lerp(startPosition, targetPosition, fractionOfJourney);
+
+            // Yukarý-aþaðý hareket (bobbing effect) ekleniyor
+            float bobbingOffset = Mathf.Sin(Time.time * bobbingSpeed) * bobbingAmplitude;
+            newPosition.y += bobbingOffset;
+
+            obj.transform.position = newPosition;
+            checkPrice = true;
+            checkbutton.SetActive(true);
+            // Renk geçiþi
+            objRenderer.material.color = Color.Lerp(Color.black, originalColor, fractionOfJourney);
+
             yield return null;
         }
 
         obj.transform.position = targetPosition;
+        objRenderer.material.color = originalColor;
 
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D));
 
@@ -61,7 +91,15 @@ public class EntitiesMovement : MonoBehaviour
         {
             float distanceCovered = (Time.time - startTime) * 10;
             float fractionOfJourney = distanceCovered / journeyLength;
-            obj.transform.position = Vector3.Lerp(backStartPosition, startPosition, fractionOfJourney);
+
+            Vector3 newPosition = Vector3.Lerp(backStartPosition, startPosition, fractionOfJourney);
+
+            // Hareket ederken bobbing efekti uygulanýr
+            float bobbingOffset = Mathf.Sin(Time.time * bobbingSpeed) * bobbingAmplitude;
+            newPosition.y += bobbingOffset;
+
+            obj.transform.position = newPosition;
+
             yield return null;
         }
 
@@ -77,7 +115,7 @@ public class EntitiesMovement : MonoBehaviour
         }
         else
         {
-            isMoving = false; 
+            isMoving = false;
         }
     }
 
@@ -87,12 +125,18 @@ public class EntitiesMovement : MonoBehaviour
         float journeyLength = Vector3.Distance(forwardStartPosition, targetPosition);
         float startTime = Time.time;
 
-        // Ýleri hareket ediyor
         while (Time.time - startTime < journeyLength / 10)
         {
             float distanceCovered = (Time.time - startTime) * 10;
             float fractionOfJourney = distanceCovered / journeyLength;
-            obj.transform.position = Vector3.Lerp(forwardStartPosition, targetPosition, fractionOfJourney);
+
+            Vector3 newPosition = Vector3.Lerp(forwardStartPosition, targetPosition, fractionOfJourney);
+            // Hareket ederken bobbing efekti uygulanýr
+            float bobbingOffset = Mathf.Sin(Time.time * bobbingSpeed) * bobbingAmplitude;
+            newPosition.y += bobbingOffset;
+
+            obj.transform.position = newPosition;
+
             yield return null;
         }
 
@@ -100,7 +144,7 @@ public class EntitiesMovement : MonoBehaviour
 
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
 
-        currentObjectIndex++; 
+        currentObjectIndex++;
 
         if (currentObjectIndex < objects.Length)
         {
