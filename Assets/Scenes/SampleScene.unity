@@ -1216,6 +1216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 947211275}
   - component: {fileID: 947211274}
+  - component: {fileID: 947211276}
   m_Layer: 0
   m_Name: Minotaur
   m_TagString: Untagged
@@ -1283,13 +1284,29 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 947211273}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -39.1745, y: -1.7368503, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.1199992, y: 2.5, z: -4.7846413}
+  m_LocalScale: {x: 0.5080608, y: 0.5080608, z: 0.5080608}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1463109683}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &947211276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947211273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2cdd80ae5f8a3643a51be08e7da9eb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Height: 123
+  Weight: 123
+  Age: 123
+  Price: 6
 --- !u!1 &1087639887
 GameObject:
   m_ObjectHideFlags: 0
@@ -1753,7 +1770,10 @@ Transform:
   m_LocalPosition: {x: -14.683979, y: -2.7328396, z: 4.7846413}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1813556364}
+  - {fileID: 1510755009}
+  - {fileID: 947211275}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1463109684
@@ -1769,11 +1789,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objects:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1813556362}
+  - {fileID: 1510755007}
+  - {fileID: 947211273}
   currentObjectIndex: 0
   bobbingAmplitude: 0.2
   bobbingSpeed: 3
@@ -1873,6 +1891,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1510755009}
   - component: {fileID: 1510755008}
+  - component: {fileID: 1510755010}
   m_Layer: 0
   m_Name: HumanMale
   m_TagString: Untagged
@@ -1940,13 +1959,29 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1510755007}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.403905, y: -0.18088341, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.1199992, y: 2.5, z: -4.7846413}
+  m_LocalScale: {x: 0.5080608, y: 0.5080608, z: 0.5080608}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1463109683}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1510755010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1510755007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2cdd80ae5f8a3643a51be08e7da9eb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Height: 123
+  Weight: 123
+  Age: 123
+  Price: 6
 --- !u!1 &1707559476
 GameObject:
   m_ObjectHideFlags: 0
@@ -2628,6 +2663,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1813556364}
   - component: {fileID: 1813556363}
+  - component: {fileID: 1813556365}
   m_Layer: 0
   m_Name: HumanFemale
   m_TagString: Untagged
@@ -2695,13 +2731,29 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1813556362}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.12, y: 2.5, z: -4.7846413}
+  m_LocalScale: {x: 0.5080608, y: 0.5080608, z: 0.5080608}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1463109683}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1813556365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813556362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2cdd80ae5f8a3643a51be08e7da9eb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Height: 123
+  Weight: 123
+  Age: 123
+  Price: 6
 --- !u!1 &1847978228
 GameObject:
   m_ObjectHideFlags: 0
@@ -3466,6 +3518,3 @@ SceneRoots:
   - {fileID: 51375928}
   - {fileID: 1912063888}
   - {fileID: 1740317788}
-  - {fileID: 1813556364}
-  - {fileID: 1510755009}
-  - {fileID: 947211275}
