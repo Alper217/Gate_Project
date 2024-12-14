@@ -5,32 +5,31 @@ using UnityEngine;
 public class PriceCheckController : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI textMeshProUGUI;
-    [SerializeField] TextMeshProUGUI sacText;
+    public TextMeshProUGUI sacText;
     ButtonSettings buttonSettings;
-    private EntitiesMovement entitiesMovement; // Referans deðiþkeni
+    private EntitiesMovement entitiesMovement;
+    int totalAmount;
 
     void Start()
     {
         // EntitiesMovement scriptini sahnede buluyoruz
         entitiesMovement = FindObjectOfType<EntitiesMovement>();
-
+        buttonSettings = FindObjectOfType<ButtonSettings>();
         if (entitiesMovement == null)
         {
             Debug.LogError("EntitiesMovement script not found in the scene.");
         }
     }
-    
+
     public void PriceOkey()
     {
-        int price = Convert.ToInt32(textMeshProUGUI.text);
-        // Objelerin dizisinin doðru olduðuna emin olun
+        int price = Convert.ToInt32(textMeshProUGUI.text); // textMeshProUGUI.text'ini int'e çeviriyoruz
         if (entitiesMovement.objects == null || entitiesMovement.objects.Length == 0)
         {
             Debug.LogError("Objects array is empty or not assigned.");
             return;
         }
 
-        // Þu anki objeye eriþiyoruz
         GameObject currentObject = entitiesMovement.objects[entitiesMovement.currentObjectIndex];
 
         if (currentObject == null)
@@ -39,7 +38,6 @@ public class PriceCheckController : MonoBehaviour
             return;
         }
 
-        // CharacterProperties scriptine eriþiyoruz
         CharacterProperties characterProperties = currentObject.GetComponent<CharacterProperties>();
 
         if (characterProperties != null && entitiesMovement.checkPrice == true)
@@ -48,8 +46,10 @@ public class PriceCheckController : MonoBehaviour
             {
                 Debug.Log("Bu karakter geçebilir");
                 entitiesMovement.SetPriceCheckResult(true);
-                int priceSac = buttonSettings.price;
-                sacText.text = priceSac.ToString();
+                int amount = Convert.ToInt32(textMeshProUGUI.text);
+                totalAmount += amount;
+                sacText.text = totalAmount.ToString();
+                Debug.Log("Para eklendi");
             }
             else
             {
