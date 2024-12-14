@@ -8,7 +8,7 @@ public class ButtonSettings : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI _textMeshPro;
     [SerializeField] GameObject _gameObject;
-    int price = 0;
+    public int price = 0;
     public void DecreasePrice()
     {
         price -= 1;

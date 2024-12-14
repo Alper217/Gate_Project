@@ -1,4 +1,7 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +22,8 @@ public class EntitiesMovement : MonoBehaviour
 
     public bool checkPrice = false;
     public GameObject checkbutton;
+
+    private bool priceCheckResult = false; // Fiyat kontrol sonucu
 
     void Update()
     {
@@ -56,8 +61,7 @@ public class EntitiesMovement : MonoBehaviour
             newPosition.y += bobbingOffset;
 
             obj.transform.position = newPosition;
-            checkPrice = true;
-            checkbutton.SetActive(true);
+
             // Renk geçiþi
             objRenderer.material.color = Color.Lerp(Color.black, originalColor, fractionOfJourney);
 
@@ -67,17 +71,33 @@ public class EntitiesMovement : MonoBehaviour
         obj.transform.position = targetPosition;
         objRenderer.material.color = originalColor;
 
-        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D));
+        checkPrice = true;
+        checkbutton.SetActive(true);
 
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            targetPosition = startPosition;
-            StartCoroutine(MoveObjectBack(obj));
-        }
-        else if (Input.GetKeyDown(KeyCode.D))
+        // Kullanýcý butona basana kadar bekle
+        yield return new WaitUntil(() => !checkPrice);
+
+        // Fiyat kontrol sonucuna göre hareket et
+        if (priceCheckResult)
         {
             targetPosition = targetPosition + new Vector3(16.8f, 0, 0);
-            StartCoroutine(MoveObjectForward(obj));
+            yield return StartCoroutine(MoveObjectForward(obj));
+        }
+        else
+        {
+            targetPosition = startPosition;
+            yield return StartCoroutine(MoveObjectBack(obj));
+        }
+
+        // Sonraki objeye geçiþ
+        currentObjectIndex++;
+        if (currentObjectIndex < objects.Length)
+        {
+            isMoving = false; // Sonraki hareket için tekrar Space'e basmayý bekle
+        }
+        else
+        {
+            isMoving = false;
         }
     }
 
@@ -104,19 +124,6 @@ public class EntitiesMovement : MonoBehaviour
         }
 
         obj.transform.position = startPosition;
-
-        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
-
-        currentObjectIndex++;
-
-        if (currentObjectIndex < objects.Length)
-        {
-            StartCoroutine(MoveObject(objects[currentObjectIndex]));
-        }
-        else
-        {
-            isMoving = false;
-        }
     }
 
     IEnumerator MoveObjectForward(GameObject obj)
@@ -141,18 +148,12 @@ public class EntitiesMovement : MonoBehaviour
         }
 
         obj.transform.position = targetPosition;
+    }
 
-        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
-
-        currentObjectIndex++;
-
-        if (currentObjectIndex < objects.Length)
-        {
-            StartCoroutine(MoveObject(objects[currentObjectIndex]));
-        }
-        else
-        {
-            isMoving = false;
-        }
+    public void SetPriceCheckResult(bool result)
+    {
+        priceCheckResult = result;
+        checkPrice = false; // Kullanýcý butona bastý, devam edebilir
+        checkbutton.SetActive(false);
     }
 }

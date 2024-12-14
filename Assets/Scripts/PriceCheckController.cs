@@ -1,17 +1,16 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class PriceCheckController : MonoBehaviour
 {
-    [SerializeField]TextMeshProUGUI textMeshProUGUI;
-    EntitiesMovement entitiesMovement; // Referans deðiþkeni
+    [SerializeField] TextMeshProUGUI textMeshProUGUI;
+    [SerializeField] TextMeshProUGUI sacText;
+    ButtonSettings buttonSettings;
+    private EntitiesMovement entitiesMovement; // Referans deðiþkeni
 
     void Start()
     {
-       
         // EntitiesMovement scriptini sahnede buluyoruz
         entitiesMovement = FindObjectOfType<EntitiesMovement>();
 
@@ -20,7 +19,7 @@ public class PriceCheckController : MonoBehaviour
             Debug.LogError("EntitiesMovement script not found in the scene.");
         }
     }
-
+    
     public void PriceOkey()
     {
         int price = Convert.ToInt32(textMeshProUGUI.text);
@@ -45,15 +44,20 @@ public class PriceCheckController : MonoBehaviour
 
         if (characterProperties != null && entitiesMovement.checkPrice == true)
         {
-            int objectPrice = characterProperties.Price;
             if (price <= characterProperties.Price)
             {
                 Debug.Log("Bu karakter geçebilir");
+                entitiesMovement.SetPriceCheckResult(true);
+                int priceSac = buttonSettings.price;
+                sacText.text = priceSac.ToString();
             }
             else
+            {
                 Debug.Log("Bu karakter geçemez");
-            Debug.Log("Current Object Price: " + objectPrice);
-            entitiesMovement.checkbutton.SetActive(false);
+                entitiesMovement.SetPriceCheckResult(false);
+            }
+
+            Debug.Log("Current Object Price: " + characterProperties.Price);
         }
         else
         {
