@@ -6642,6 +6642,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2205805b934920444b0c60bab0295725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  losePrice: 15
   objects:
   - {fileID: 1000243759}
   - {fileID: 1191588892}

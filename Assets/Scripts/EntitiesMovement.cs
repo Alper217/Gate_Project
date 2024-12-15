@@ -9,32 +9,32 @@ public class EntitiesMovement : MonoBehaviour
 {
     [SerializeField] int losePrice;
     public GameObject[] objects; // Objeler listesi
-    public int currentObjectIndex = 0; // Þu anki obje indeksi
-    private bool isMoving = false; // Hareket kontrolü
+    public int currentObjectIndex = 0; // ï¿½u anki obje indeksi
+    private bool isMoving = false; // Hareket kontrolï¿½
 
-    private Vector3 startPosition; // Baþlangýç pozisyonu
+    private Vector3 startPosition; // Baï¿½langï¿½ï¿½ pozisyonu
     private Vector3 targetPosition; // Hedef pozisyon
 
-    public float bobbingAmplitude = 0.2f; // Yüksekliðin genliði (yukarý-aþaðý hareket miktarý)
-    public float bobbingSpeed = 3f; // Yüksekliðin hýzýný ayarlar
+    public float bobbingAmplitude = 0.2f; // Yï¿½ksekliï¿½in genliï¿½i (yukarï¿½-aï¿½aï¿½ï¿½ hareket miktarï¿½)
+    public float bobbingSpeed = 3f; // Yï¿½ksekliï¿½in hï¿½zï¿½nï¿½ ayarlar
 
     private Renderer objRenderer;
     private Color originalColor;
 
     public bool checkPrice = false;
     public GameObject checkbutton;
-    public GameObject CikisButonu; // Yeni Çýkýþ Butonu
+    public GameObject CikisButonu; // Yeni ï¿½ï¿½kï¿½ï¿½ Butonu
 
     private bool priceCheckResult = false; // Fiyat kontrol sonucu
 
     [SerializeField] private GameObject animatedObject; // Animasyon yapacak GameObject
     [SerializeField] public GameObject[] dialogBoxes;
 
-    private int totalMoney = 0; // Toplam para miktarý
+    private int totalMoney = 0; // Toplam para miktarï¿½
 
     void Start()
     {
-        // CikisButonu baþta inaktif
+        // CikisButonu baï¿½ta inaktif
         if (CikisButonu != null)
         {
             CikisButonu.SetActive(false);
@@ -43,7 +43,7 @@ public class EntitiesMovement : MonoBehaviour
 
     void Update()
     {
-        // Update içerisine harekete dair bir iþlem eklenmedi
+        // Update iï¿½erisine harekete dair bir iï¿½lem eklenmedi
     }
 
     public void TriggerMovement()
@@ -75,10 +75,10 @@ public class EntitiesMovement : MonoBehaviour
         float journeyLength = Vector3.Distance(startPosition, targetPosition);
         float startTime = Time.time;
 
-        // Diyalog box'ý ilk karakterin hareketi tamamlandýktan sonra aktif et
+        // Diyalog box'ï¿½ ilk karakterin hareketi tamamlandï¿½ktan sonra aktif et
         if (dialogBoxes.Length > currentObjectIndex)
         {
-            dialogBoxes[currentObjectIndex].SetActive(true); // Ýlgili diyalog box'ý aktif et
+            dialogBoxes[currentObjectIndex].SetActive(true); // ï¿½lgili diyalog box'ï¿½ aktif et
         }
 
         while (Time.time - startTime < journeyLength / 10)
@@ -91,7 +91,7 @@ public class EntitiesMovement : MonoBehaviour
 
             obj.transform.position = newPosition;
 
-            // Renk geçiþi
+            // Renk geï¿½iï¿½i
             objRenderer.material.color = Color.Lerp(Color.black, originalColor, fractionOfJourney);
 
             yield return null;
@@ -102,23 +102,23 @@ public class EntitiesMovement : MonoBehaviour
 
         checkPrice = true;
         checkbutton.SetActive(true); // Buton hareket bitince aktif
-        CikisButonu.SetActive(true); // Çýkýþ Butonunu aktif et
+        CikisButonu.SetActive(true); // ï¿½ï¿½kï¿½ï¿½ Butonunu aktif et
 
-        // Kullanýcý butona basana kadar bekle
+        // Kullanï¿½cï¿½ butona basana kadar bekle
         yield return new WaitUntil(() => !checkPrice);
 
-        // Önceki diyalog kutusunu inaktif yap
+        // ï¿½nceki diyalog kutusunu inaktif yap
         if (dialogBoxes.Length > currentObjectIndex)
         {
-            dialogBoxes[currentObjectIndex].SetActive(false); // Önceki diyalog box'ýný inaktif et
+            dialogBoxes[currentObjectIndex].SetActive(false); // ï¿½nceki diyalog box'ï¿½nï¿½ inaktif et
         }
 
-        CikisButonu.SetActive(false); // Karakter hareket ederken çýkýþ butonunu inaktif yap
+        CikisButonu.SetActive(false); // Karakter hareket ederken ï¿½ï¿½kï¿½ï¿½ butonunu inaktif yap
 
-        // Fiyat kontrol sonucuna göre hareket et
+        // Fiyat kontrol sonucuna gï¿½re hareket et
         if (priceCheckResult)
         {
-            totalMoney += 5; // Eðer fiyat kontrolü olumluysa, para miktarýný artýr
+            totalMoney += 5; // Eï¿½er fiyat kontrolï¿½ olumluysa, para miktarï¿½nï¿½ artï¿½r
             targetPosition = targetPosition + new Vector3(16.8f, 0, 0);
             yield return StartCoroutine(MoveObjectForward(obj));
         }
@@ -128,17 +128,17 @@ public class EntitiesMovement : MonoBehaviour
             yield return StartCoroutine(MoveObjectBack(obj));
         }
 
-        // Sonraki objeye geçiþ
+        // Sonraki objeye geï¿½iï¿½
         currentObjectIndex++;
         if (currentObjectIndex < objects.Length)
         {
-            isMoving = false; // Sonraki hareket için tekrar týklamayý bekle
-            CikisButonu.SetActive(true); // Sýradaki karakter geldiðinde buton tekrar aktif
+            isMoving = false; // Sonraki hareket iï¿½in tekrar tï¿½klamayï¿½ bekle
+            CikisButonu.SetActive(true); // Sï¿½radaki karakter geldiï¿½inde buton tekrar aktif
         }
         else
         {
             isMoving = false;
-            CheckGameResult(); // Tüm karakterler hareket ettikten sonra oyunu kontrol et
+            CheckGameResult(); // Tï¿½m karakterler hareket ettikten sonra oyunu kontrol et
         }
     }
 
@@ -155,7 +155,7 @@ public class EntitiesMovement : MonoBehaviour
 
             Vector3 newPosition = Vector3.Lerp(backStartPosition, startPosition, fractionOfJourney);
 
-            // Hareket ederken bobbing efekti uygulanýr
+            // Hareket ederken bobbing efekti uygulanï¿½r
             float bobbingOffset = Mathf.Sin(Time.time * bobbingSpeed) * bobbingAmplitude;
             newPosition.y += bobbingOffset;
 
@@ -170,17 +170,17 @@ public class EntitiesMovement : MonoBehaviour
     {
         if (obj == null)
         {
-            Debug.LogError("AnimateObject: Animasyon yapýlacak obje atanmadý.");
+            Debug.LogError("AnimateObject: Animasyon yapï¿½lacak obje atanmadï¿½.");
             yield break;
         }
 
         Vector3 originalPosition = obj.transform.position;
-        Vector3 targetPosition = originalPosition + new Vector3(0, -2, 0); // Aþaðý yönde hareket için hedef pozisyon
+        Vector3 targetPosition = originalPosition + new Vector3(0, -2, 0); // Aï¿½aï¿½ï¿½ yï¿½nde hareket iï¿½in hedef pozisyon
 
-        float duration = 0.5f; // Animasyon süresi
+        float duration = 0.5f; // Animasyon sï¿½resi
         float elapsedTime = 0f;
 
-        // Aþaðý hareket
+        // Aï¿½aï¿½ï¿½ hareket
         while (elapsedTime < duration)
         {
             obj.transform.position = Vector3.Lerp(originalPosition, targetPosition, elapsedTime / duration);
@@ -189,7 +189,7 @@ public class EntitiesMovement : MonoBehaviour
         }
         obj.transform.position = targetPosition;
 
-        // Yukarý hareket
+        // Yukarï¿½ hareket
         elapsedTime = 0f;
         while (elapsedTime < duration)
         {
@@ -211,7 +211,7 @@ public class EntitiesMovement : MonoBehaviour
             float fractionOfJourney = distanceCovered / journeyLength;
 
             Vector3 newPosition = Vector3.Lerp(forwardStartPosition, targetPosition, fractionOfJourney);
-            // Hareket ederken bobbing efekti uygulanýr
+            // Hareket ederken bobbing efekti uygulanï¿½r
             float bobbingOffset = Mathf.Sin(Time.time * bobbingSpeed) * bobbingAmplitude;
             newPosition.y += bobbingOffset;
 
@@ -227,24 +227,24 @@ public class EntitiesMovement : MonoBehaviour
     {
         if (totalMoney < losePrice)
         {
-            Debug.Log("Kaybettin!");                        
+            SceneManager.LoadScene("GameOver");                      
         }
         else
         {
-            Debug.Log("Kazandýn!");
+            Debug.Log("Kazandï¿½n!");
         }
     }
 
     public void SetPriceCheckResult(bool result)
     {
         priceCheckResult = result;
-        checkPrice = false; // Kullanýcý butona bastý, devam edebilir
+        checkPrice = false; // Kullanï¿½cï¿½ butona bastï¿½, devam edebilir
         checkbutton.SetActive(false);
     }
 
     public void RejectAndMoveNext()
     {
-        // Direkt reddet ve geri dönüp diðer objeye geç
+        // Direkt reddet ve geri dï¿½nï¿½p diï¿½er objeye geï¿½
         priceCheckResult = false;
         checkPrice = false;
         if (animatedObject != null)
