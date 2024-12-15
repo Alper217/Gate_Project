@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class ButtonSettings : MonoBehaviour
 {
+    [SerializeField] GameObject ruleIcon;
+    [SerializeField] GameObject ruleText;
     [SerializeField] GameObject bookIcon;
     [SerializeField] TextMeshProUGUI _textMeshPro;
     [SerializeField] GameObject _gameObject;
@@ -29,5 +31,10 @@ public class ButtonSettings : MonoBehaviour
     {
         _gameObject.SetActive(false);
         bookIcon.SetActive(true);
+    }
+    public void RulesPaperClose()
+    {
+        ruleIcon.SetActive(true);
+        ruleText.SetActive(false);
     }
 }
