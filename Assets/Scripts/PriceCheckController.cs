@@ -1,14 +1,17 @@
 using System;
 using TMPro;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class PriceCheckController : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI textMeshProUGUI;
     public TextMeshProUGUI sacText;
-    ButtonSettings buttonSettings;
+    [SerializeField] private GameObject animatedObject; // Animasyon yapacak GameObject
+    private ButtonSettings buttonSettings;
     private EntitiesMovement entitiesMovement;
-    int totalAmount;
+    private int totalAmount;
 
     void Start()
     {
@@ -63,5 +66,47 @@ public class PriceCheckController : MonoBehaviour
         {
             Debug.LogError("CharacterProperties script not found on the object.");
         }
+
+        // GameObject'i animasyon için çaðýr
+        if (animatedObject != null)
+        {
+            StartCoroutine(AnimateObject(animatedObject));
+        }
+        else
+        {
+            Debug.LogError("Animated Object is not assigned in the Inspector.");
+        }
+    }
+
+    private IEnumerator AnimateObject(GameObject obj)
+    {
+        Vector3 originalPosition = obj.transform.position;
+        Vector3 targetPosition = originalPosition + new Vector3(0, -2, 0);
+
+        // Yukarý çýkma
+        float elapsedTime = 0f;
+        float duration = 0.5f; // Animasyon süresi
+
+        while (elapsedTime < duration)
+        {
+            obj.transform.position = Vector3.Lerp(originalPosition, targetPosition, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Pozisyonu tamamen hedef pozisyona ayarla
+        obj.transform.position = targetPosition;
+
+        // Aþaðý dönme
+        elapsedTime = 0f;
+        while (elapsedTime < duration)
+        {
+            obj.transform.position = Vector3.Lerp(targetPosition, originalPosition, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Pozisyonu tamamen baþlangýç pozisyonuna ayarla
+        obj.transform.position = originalPosition;
     }
 }

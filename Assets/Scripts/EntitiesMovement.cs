@@ -22,8 +22,20 @@ public class EntitiesMovement : MonoBehaviour
 
     public bool checkPrice = false;
     public GameObject checkbutton;
+    public GameObject CikisButonu; // Yeni Çýkýþ Butonu
 
     private bool priceCheckResult = false; // Fiyat kontrol sonucu
+
+    [SerializeField] private GameObject animatedObject; // Animasyon yapacak GameObject
+
+    void Start()
+    {
+        // CikisButonu baþta inaktif
+        if (CikisButonu != null)
+        {
+            CikisButonu.SetActive(false);
+        }
+    }
 
     void Update()
     {
@@ -36,6 +48,7 @@ public class EntitiesMovement : MonoBehaviour
     IEnumerator MoveObject(GameObject obj)
     {
         isMoving = true;
+        checkbutton.SetActive(false); // Buton hareket bitene kadar inaktif
 
         objRenderer = obj.GetComponent<Renderer>();
         originalColor = objRenderer.material.color;
@@ -56,10 +69,6 @@ public class EntitiesMovement : MonoBehaviour
             // Yatay hareket
             Vector3 newPosition = Vector3.Lerp(startPosition, targetPosition, fractionOfJourney);
 
-            // Yukarý-aþaðý hareket (bobbing effect) ekleniyor
-            float bobbingOffset = Mathf.Sin(Time.time * bobbingSpeed) * bobbingAmplitude;
-            newPosition.y += bobbingOffset;
-
             obj.transform.position = newPosition;
 
             // Renk geçiþi
@@ -72,10 +81,13 @@ public class EntitiesMovement : MonoBehaviour
         objRenderer.material.color = originalColor;
 
         checkPrice = true;
-        checkbutton.SetActive(true);
+        checkbutton.SetActive(true); // Buton hareket bitince aktif
+        CikisButonu.SetActive(true); // Çýkýþ Butonunu aktif et
 
         // Kullanýcý butona basana kadar bekle
         yield return new WaitUntil(() => !checkPrice);
+
+        CikisButonu.SetActive(false); // Karakter hareket ederken çýkýþ butonunu inaktif yap
 
         // Fiyat kontrol sonucuna göre hareket et
         if (priceCheckResult)
@@ -94,6 +106,7 @@ public class EntitiesMovement : MonoBehaviour
         if (currentObjectIndex < objects.Length)
         {
             isMoving = false; // Sonraki hareket için tekrar Space'e basmayý bekle
+            CikisButonu.SetActive(true); // Sýradaki karakter geldiðinde buton tekrar aktif
         }
         else
         {
@@ -150,10 +163,59 @@ public class EntitiesMovement : MonoBehaviour
         obj.transform.position = targetPosition;
     }
 
+    private IEnumerator AnimateObject(GameObject obj)
+    {
+        Vector3 originalPosition = obj.transform.position;
+        Vector3 targetPosition = originalPosition + new Vector3(0, -2, 0);
+
+        // Yukarý çýkma
+        float elapsedTime = 0f;
+        float duration = 0.5f; // Animasyon süresi
+
+        while (elapsedTime < duration)
+        {
+            obj.transform.position = Vector3.Lerp(originalPosition, targetPosition, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Pozisyonu tamamen hedef pozisyona ayarla
+        obj.transform.position = targetPosition;
+
+        // Aþaðý dönme
+        elapsedTime = 0f;
+        while (elapsedTime < duration)
+        {
+            obj.transform.position = Vector3.Lerp(targetPosition, originalPosition, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Pozisyonu tamamen baþlangýç pozisyonuna ayarla
+        obj.transform.position = originalPosition;
+    }
+
+
     public void SetPriceCheckResult(bool result)
     {
         priceCheckResult = result;
         checkPrice = false; // Kullanýcý butona bastý, devam edebilir
         checkbutton.SetActive(false);
     }
+
+    public void RejectAndMoveNext()
+    {
+        // Direkt reddet ve geri dönüp diðer objeye geç
+        priceCheckResult = false;
+        checkPrice = false;
+        if (animatedObject != null)
+        {
+            StartCoroutine(AnimateObject(animatedObject));
+        }
+        else
+        {
+            Debug.LogError("Animated Object is not assigned in the Inspector.");
+        }
+    }
+
 }
