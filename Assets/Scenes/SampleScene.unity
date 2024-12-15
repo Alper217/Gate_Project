@@ -720,7 +720,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &132427506
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5992,7 +5992,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2205805b934920444b0c60bab0295725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  losePrice: 19
+  losePrice: 14
   objects:
   - {fileID: 1813556362}
   - {fileID: 1510755007}
