@@ -39,10 +39,20 @@ public class EntitiesMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isMoving)
+        // Update içerisine harekete dair bir iþlem eklenmedi
+    }
+
+    public void TriggerMovement()
+    {
+        if (!isMoving && currentObjectIndex < objects.Length)
         {
             StartCoroutine(MoveObject(objects[currentObjectIndex]));
         }
+    }
+
+    public bool IsMoving()
+    {
+        return isMoving;
     }
 
     IEnumerator MoveObject(GameObject obj)
@@ -105,7 +115,7 @@ public class EntitiesMovement : MonoBehaviour
         currentObjectIndex++;
         if (currentObjectIndex < objects.Length)
         {
-            isMoving = false; // Sonraki hareket için tekrar Space'e basmayý bekle
+            isMoving = false; // Sonraki hareket için tekrar týklamayý bekle
             CikisButonu.SetActive(true); // Sýradaki karakter geldiðinde buton tekrar aktif
         }
         else
@@ -195,7 +205,6 @@ public class EntitiesMovement : MonoBehaviour
         obj.transform.position = originalPosition;
     }
 
-
     public void SetPriceCheckResult(bool result)
     {
         priceCheckResult = result;
@@ -217,5 +226,4 @@ public class EntitiesMovement : MonoBehaviour
             Debug.LogError("Animated Object is not assigned in the Inspector.");
         }
     }
-
 }

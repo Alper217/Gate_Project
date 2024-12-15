@@ -5,6 +5,7 @@ using UnityEngine;
 public class BellHighLight : MonoBehaviour
 {
     [SerializeField] public GameObject bellIcon;
+    [SerializeField] private EntitiesMovement entitiesMovement; // EntitiesMovement referansý
     private SpriteRenderer spriteRenderer; // SpriteRenderer bileþeni
     private Color originalColor; // Orijinal rengi
     [SerializeField] private Color highlightColor = new Color(1f, 1f, 0.5f); // Hafif sarý renk
@@ -20,6 +21,12 @@ public class BellHighLight : MonoBehaviour
         else
         {
             Debug.LogError("SpriteRenderer bileþeni bulunamadý. Lütfen bu script'i bir SpriteRenderer içeren nesneye ekleyin.");
+        }
+
+        // EntitiesMovement referansýný kontrol et
+        if (entitiesMovement == null)
+        {
+            Debug.LogError("EntitiesMovement referansý atanmadý. Lütfen Inspector üzerinden atayýn.");
         }
     }
 
@@ -43,6 +50,14 @@ public class BellHighLight : MonoBehaviour
 
     void OnMouseDown()
     {
-      
+        // Fare ile týklanýldýðýnda hareketi baþlat
+        if (entitiesMovement != null && !entitiesMovement.IsMoving())
+        {
+            entitiesMovement.TriggerMovement();
+        }
+        else if (entitiesMovement == null)
+        {
+            Debug.LogError("EntitiesMovement referansý bulunamadý.");
+        }
     }
 }

@@ -6073,7 +6073,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 332f100185e7c6c49945a4ce1a8467bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bellIcon: {fileID: 0}
+  bellIcon: {fileID: 1938934036}
+  entitiesMovement: {fileID: 1463109684}
   highlightColor: {r: 1, g: 1, b: 0.5, a: 1}
 --- !u!61 &1938934040
 BoxCollider2D:
