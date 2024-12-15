@@ -29,6 +29,8 @@ public class EntitiesMovement : MonoBehaviour
     [SerializeField] private GameObject animatedObject; // Animasyon yapacak GameObject
     [SerializeField] public GameObject[] dialogBoxes;
 
+    private int totalMoney = 0; // Toplam para miktarý
+
     void Start()
     {
         // CikisButonu baþta inaktif
@@ -115,6 +117,7 @@ public class EntitiesMovement : MonoBehaviour
         // Fiyat kontrol sonucuna göre hareket et
         if (priceCheckResult)
         {
+            totalMoney += 5; // Eðer fiyat kontrolü olumluysa, para miktarýný artýr
             targetPosition = targetPosition + new Vector3(16.8f, 0, 0);
             yield return StartCoroutine(MoveObjectForward(obj));
         }
@@ -134,6 +137,7 @@ public class EntitiesMovement : MonoBehaviour
         else
         {
             isMoving = false;
+            CheckGameResult(); // Tüm karakterler hareket ettikten sonra oyunu kontrol et
         }
     }
 
@@ -161,7 +165,39 @@ public class EntitiesMovement : MonoBehaviour
 
         obj.transform.position = startPosition;
     }
+    private IEnumerator AnimateObject(GameObject obj)
+    {
+        if (obj == null)
+        {
+            Debug.LogError("AnimateObject: Animasyon yapýlacak obje atanmadý.");
+            yield break;
+        }
 
+        Vector3 originalPosition = obj.transform.position;
+        Vector3 targetPosition = originalPosition + new Vector3(0, -2, 0); // Aþaðý yönde hareket için hedef pozisyon
+
+        float duration = 0.5f; // Animasyon süresi
+        float elapsedTime = 0f;
+
+        // Aþaðý hareket
+        while (elapsedTime < duration)
+        {
+            obj.transform.position = Vector3.Lerp(originalPosition, targetPosition, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        obj.transform.position = targetPosition;
+
+        // Yukarý hareket
+        elapsedTime = 0f;
+        while (elapsedTime < duration)
+        {
+            obj.transform.position = Vector3.Lerp(targetPosition, originalPosition, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        obj.transform.position = originalPosition;
+    }
     IEnumerator MoveObjectForward(GameObject obj)
     {
         Vector3 forwardStartPosition = obj.transform.position;
@@ -186,36 +222,16 @@ public class EntitiesMovement : MonoBehaviour
         obj.transform.position = targetPosition;
     }
 
-    private IEnumerator AnimateObject(GameObject obj)
+    private void CheckGameResult()
     {
-        Vector3 originalPosition = obj.transform.position;
-        Vector3 targetPosition = originalPosition + new Vector3(0, -2, 0);
-
-        // Yukarý çýkma
-        float elapsedTime = 0f;
-        float duration = 0.5f; // Animasyon süresi
-
-        while (elapsedTime < duration)
+        if (totalMoney < 19)
         {
-            obj.transform.position = Vector3.Lerp(originalPosition, targetPosition, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
+            Debug.Log("Kaybettin!");
         }
-
-        // Pozisyonu tamamen hedef pozisyona ayarla
-        obj.transform.position = targetPosition;
-
-        // Aþaðý dönme
-        elapsedTime = 0f;
-        while (elapsedTime < duration)
+        else
         {
-            obj.transform.position = Vector3.Lerp(targetPosition, originalPosition, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
+            Debug.Log("Kazandýn!");
         }
-
-        // Pozisyonu tamamen baþlangýç pozisyonuna ayarla
-        obj.transform.position = originalPosition;
     }
 
     public void SetPriceCheckResult(bool result)
