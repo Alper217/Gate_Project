@@ -3,10 +3,10 @@ using UnityEngine;
 public class GlassActivateCode : MonoBehaviour
 {
     [SerializeField] public GameObject onBoardObject; // Masadaki obje
-    [SerializeField] public GameObject targetObject;  // Sürüklenebilir obje
+    [SerializeField] public GameObject targetObject;  // Sï¿½rï¿½klenebilir obje
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
-    [SerializeField] private Color highlightColor = new Color(1f, 1f, 0.5f); // Sarý renk
+    [SerializeField] private Color highlightColor = new Color(1f, 1f, 0.5f); // Sarï¿½ renk
 
     void Start()
     {
@@ -17,13 +17,13 @@ public class GlassActivateCode : MonoBehaviour
         }
         else
         {
-            Debug.LogError("SpriteRenderer bileþeni bulunamadý.");
+            Debug.LogError("SpriteRenderer bileï¿½eni bulunamadï¿½.");
         }
     }
 
     void OnMouseEnter()
     {
-        // Fare üzerine geldiðinde rengi deðiþtir
+        // Fare ï¿½zerine geldiï¿½inde rengi deï¿½iï¿½tir
         if (spriteRenderer != null)
         {
             spriteRenderer.color = highlightColor;
@@ -32,7 +32,7 @@ public class GlassActivateCode : MonoBehaviour
 
     void OnMouseExit()
     {
-        // Fare nesneden ayrýldýðýnda orijinal rengine dön
+        // Fare nesneden ayrï¿½ldï¿½ï¿½ï¿½nda orijinal rengine dï¿½n
         if (spriteRenderer != null)
         {
             spriteRenderer.color = originalColor;
@@ -40,12 +40,19 @@ public class GlassActivateCode : MonoBehaviour
     }
 
     void OnMouseDown()
+{
+    // TÄ±klanÄ±nca masa objesini kapat, sÃ¼rÃ¼klenebilir objeyi aÃ§
+    if (onBoardObject != null && targetObject != null)
     {
-        // Týklanýnca masa objesini kapat, sürüklenebilir objeyi aç
-        if (onBoardObject != null && targetObject != null)
-        {
-            onBoardObject.SetActive(false);
-            targetObject.SetActive(true);
-        }
+        onBoardObject.SetActive(false);
+        targetObject.SetActive(true);
     }
+
+    // Ses oynatma
+    AudioSource audioSource = GetComponent<AudioSource>();
+    if (audioSource != null)
+    {
+        audioSource.Play();
+    }
+}
 }
