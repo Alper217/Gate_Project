@@ -216,7 +216,7 @@ public class EntitiesMovement : MonoBehaviour
             if (currentScene == "SampleScene")
             {
                 Debug.Log("Loading SecondScene"); // SampleScene ise SecondScene'i yükler
-                SceneManager.LoadScene("SecondScene");
+                SceneManager.LoadScene("SecondEpisode");
             }
             else
             {
