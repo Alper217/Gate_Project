@@ -47,12 +47,5 @@ public class GlassActivateCode : MonoBehaviour
         onBoardObject.SetActive(false);
         targetObject.SetActive(true);
     }
-
-    // Ses oynatma
-    AudioSource audioSource = GetComponent<AudioSource>();
-    if (audioSource != null)
-    {
-        audioSource.Play();
-    }
 }
 }

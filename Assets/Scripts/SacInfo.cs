@@ -6,6 +6,8 @@ public class SacInfo : MonoBehaviour
     public TextMeshProUGUI textMeshPro;
     private SpriteRenderer triangleRenderer;
     private Color originalColor;
+    public AudioSource src;
+    [SerializeField] private AudioClip sfx1;
 
     void Start()
     {
@@ -49,5 +51,7 @@ public class SacInfo : MonoBehaviour
         {
             textMeshPro.enabled = false;
         }
+        src.clip = sfx1;
+        src.Play();
     }
 }
