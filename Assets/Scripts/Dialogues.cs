@@ -39,7 +39,7 @@ public class Dialogues : MonoBehaviour
     }
     IEnumerator TypeLine()
     {
-        foreach(char c in lines[index].ToCharArray())
+        foreach (char c in lines[index].ToCharArray())
         {
             textComponent.text += c;
             yield return new WaitForSeconds(textSpeed);
@@ -47,11 +47,11 @@ public class Dialogues : MonoBehaviour
     }
     void NextLine()
     {
-        if (index < lines.Length-1)
+        if (index < lines.Length - 1)
         {
             index++;
             textComponent.text += string.Empty;
-            StartCoroutine (TypeLine());
+            StartCoroutine(TypeLine());
         }
         else
         {
