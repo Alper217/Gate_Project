@@ -3994,7 +3994,7 @@ MonoBehaviour:
   Height: 0
   Weight: 0
   Age: 0
-  Price: 0
+  Price: 7
 --- !u!1 &815145135
 GameObject:
   m_ObjectHideFlags: 0
@@ -4843,7 +4843,7 @@ MonoBehaviour:
   Height: 0
   Weight: 0
   Age: 0
-  Price: 0
+  Price: 6
 --- !u!1 &1037629217
 GameObject:
   m_ObjectHideFlags: 0
@@ -7169,7 +7169,7 @@ MonoBehaviour:
   Height: 0
   Weight: 0
   Age: 0
-  Price: 0
+  Price: 4
 --- !u!1 &1521829979
 GameObject:
   m_ObjectHideFlags: 0
