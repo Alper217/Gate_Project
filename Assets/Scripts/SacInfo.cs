@@ -51,6 +51,10 @@ public class SacInfo : MonoBehaviour
         {
             textMeshPro.enabled = false;
         }
+    }
+
+    void OnMouseEnter()
+    {
         src.clip = sfx1;
         src.Play();
     }
