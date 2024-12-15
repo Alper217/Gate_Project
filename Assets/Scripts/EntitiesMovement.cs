@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class EntitiesMovement : MonoBehaviour
 {
+    [SerializeField] public SceneManager sahne;
     [SerializeField] int losePrice;
     public GameObject[] objects; // Objeler listesi
     public int currentObjectIndex = 0; // �u anki obje indeksi
@@ -227,11 +229,20 @@ public class EntitiesMovement : MonoBehaviour
     {
         if (totalMoney < losePrice)
         {
-            SceneManager.LoadScene("GameOver");                      
+            SceneManager.LoadScene("GameOver");
         }
         else
         {
-            Debug.Log("Kazand�n!");
+            string currentScene = SceneManager.GetActiveScene().name;
+
+            if (currentScene == "SampleScene")
+            {
+                SceneManager.LoadScene("SecondScene");  // Eğer sahne FirstScene ise SecondScene'i yükle
+            }
+            else
+            {
+                SceneManager.LoadScene("Startt");  // Diğer sahnelerde MainMenu'yi yükle
+            }
         }
     }
 
