@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class EntitiesMovement : MonoBehaviour
 {
+    [SerializeField] int losePrice;
     public GameObject[] objects; // Objeler listesi
     public int currentObjectIndex = 0; // Þu anki obje indeksi
     private bool isMoving = false; // Hareket kontrolü
@@ -224,9 +225,9 @@ public class EntitiesMovement : MonoBehaviour
 
     private void CheckGameResult()
     {
-        if (totalMoney < 19)
+        if (totalMoney < losePrice)
         {
-            Debug.Log("Kaybettin!");
+            Debug.Log("Kaybettin!");                        
         }
         else
         {
