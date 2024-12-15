@@ -10,13 +10,13 @@ public class Dialogues : MonoBehaviour
     public float textSpeed;
 
     private int index;
+
     void Start()
     {
         textComponent.text = string.Empty;
         StartDialogue();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -32,11 +32,14 @@ public class Dialogues : MonoBehaviour
             }
         }
     }
+
     void StartDialogue()
     {
         index = 0;
+        textComponent.text = string.Empty; // Ýlk baþta metni temizle
         StartCoroutine(TypeLine());
     }
+
     IEnumerator TypeLine()
     {
         foreach (char c in lines[index].ToCharArray())
@@ -45,17 +48,18 @@ public class Dialogues : MonoBehaviour
             yield return new WaitForSeconds(textSpeed);
         }
     }
+
     void NextLine()
     {
         if (index < lines.Length - 1)
         {
             index++;
-            textComponent.text += string.Empty;
+            textComponent.text = string.Empty;  // Yeni satýra geçmeden önce metni temizle
             StartCoroutine(TypeLine());
         }
         else
         {
-            gameObject.SetActive(false);
+            gameObject.SetActive(false);  // Dialog bittiðinde nesneyi devre dýþý býrak
         }
     }
 }

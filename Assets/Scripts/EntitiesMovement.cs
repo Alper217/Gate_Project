@@ -27,6 +27,7 @@ public class EntitiesMovement : MonoBehaviour
     private bool priceCheckResult = false; // Fiyat kontrol sonucu
 
     [SerializeField] private GameObject animatedObject; // Animasyon yapacak GameObject
+    [SerializeField] public GameObject[] dialogBoxes;
 
     void Start()
     {
@@ -71,6 +72,12 @@ public class EntitiesMovement : MonoBehaviour
         float journeyLength = Vector3.Distance(startPosition, targetPosition);
         float startTime = Time.time;
 
+        // Diyalog box'ý ilk karakterin hareketi tamamlandýktan sonra aktif et
+        if (dialogBoxes.Length > currentObjectIndex)
+        {
+            dialogBoxes[currentObjectIndex].SetActive(true); // Ýlgili diyalog box'ý aktif et
+        }
+
         while (Time.time - startTime < journeyLength / 10)
         {
             float distanceCovered = (Time.time - startTime) * 10;
@@ -96,6 +103,12 @@ public class EntitiesMovement : MonoBehaviour
 
         // Kullanýcý butona basana kadar bekle
         yield return new WaitUntil(() => !checkPrice);
+
+        // Önceki diyalog kutusunu inaktif yap
+        if (dialogBoxes.Length > currentObjectIndex)
+        {
+            dialogBoxes[currentObjectIndex].SetActive(false); // Önceki diyalog box'ýný inaktif et
+        }
 
         CikisButonu.SetActive(false); // Karakter hareket ederken çýkýþ butonunu inaktif yap
 
