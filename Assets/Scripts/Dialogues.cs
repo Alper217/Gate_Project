@@ -11,6 +11,9 @@ public class Dialogues : MonoBehaviour
 
     private int index;
 
+    public AudioSource src;
+    [SerializeField] private AudioClip sfx2;
+
     void Start()
     {
         textComponent.text = string.Empty;
@@ -36,8 +39,9 @@ public class Dialogues : MonoBehaviour
     void StartDialogue()
     {
         index = 0;
-        textComponent.text = string.Empty; // Ýlk baþta metni temizle
+        textComponent.text = string.Empty; // ï¿½lk baï¿½ta metni temizle
         StartCoroutine(TypeLine());
+
     }
 
     IEnumerator TypeLine()
@@ -47,6 +51,7 @@ public class Dialogues : MonoBehaviour
             textComponent.text += c;
             yield return new WaitForSeconds(textSpeed);
         }
+        
     }
 
     void NextLine()
@@ -54,12 +59,19 @@ public class Dialogues : MonoBehaviour
         if (index < lines.Length - 1)
         {
             index++;
-            textComponent.text = string.Empty;  // Yeni satýra geçmeden önce metni temizle
+            textComponent.text = string.Empty;  // Yeni satï¿½ra geï¿½meden ï¿½nce metni temizle
             StartCoroutine(TypeLine());
+            if (index > 0)
+            {
+            src.clip = sfx2;
+            src.Play();
+            }
+        
         }
         else
         {
-            gameObject.SetActive(false);  // Dialog bittiðinde nesneyi devre dýþý býrak
+            gameObject.SetActive(false);  // Dialog bittiï¿½inde nesneyi devre dï¿½ï¿½ï¿½ bï¿½rak
         }
+
     }
 }
