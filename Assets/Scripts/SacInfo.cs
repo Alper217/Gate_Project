@@ -8,7 +8,6 @@ public class SacInfo : MonoBehaviour
     private Color originalColor;
     public AudioSource src;
     [SerializeField] private AudioClip sfx1;
-
     void Start()
     {
         triangleRenderer = GetComponent<SpriteRenderer>();
@@ -19,7 +18,6 @@ public class SacInfo : MonoBehaviour
             textMeshPro.enabled = false;
         }
     }
-
     void Update()
     {
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -34,7 +32,6 @@ public class SacInfo : MonoBehaviour
             OnMouseExitTriangle();
         }
     }
-
     void OnMouseOverTriangle()
     {
         triangleRenderer.color = Color.yellow;
@@ -43,7 +40,6 @@ public class SacInfo : MonoBehaviour
             textMeshPro.enabled = true;
         }
     }
-
     void OnMouseExitTriangle()
     {
         triangleRenderer.color = originalColor;
@@ -52,7 +48,6 @@ public class SacInfo : MonoBehaviour
             textMeshPro.enabled = false;
         }
     }
-
     void OnMouseEnter()
     {
         src.clip = sfx1;

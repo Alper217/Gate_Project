@@ -5,8 +5,7 @@ using UnityEngine.UI;
 using UnityEngine;
 
 public class ButtonSettings : MonoBehaviour
-{
-    [SerializeField] GameObject ruleIcon;
+{   [SerializeField] GameObject ruleIcon;
     [SerializeField] GameObject ruleText;
     [SerializeField] GameObject bookIcon;
     [SerializeField] TextMeshProUGUI _textMeshPro;

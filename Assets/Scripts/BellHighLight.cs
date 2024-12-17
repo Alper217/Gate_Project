@@ -5,14 +5,13 @@ using UnityEngine;
 public class BellHighLight : MonoBehaviour
 {
     [SerializeField] public GameObject bellIcon;
-    [SerializeField] private EntitiesMovement entitiesMovement; // EntitiesMovement referansý
-    private SpriteRenderer spriteRenderer; // SpriteRenderer bileþeni
-    private Color originalColor; // Orijinal rengi
-    [SerializeField] private Color highlightColor = new Color(1f, 1f, 0.5f); // Hafif sarý renk
+    [SerializeField] private EntitiesMovement entitiesMovement; 
+    private SpriteRenderer spriteRenderer;
+    private Color originalColor; 
+    [SerializeField] private Color highlightColor = new Color(1f, 1f, 0.5f);
 
     void Start()
     {
-        // SpriteRenderer bileþenini al ve orijinal rengi sakla
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
         {
@@ -23,7 +22,6 @@ public class BellHighLight : MonoBehaviour
             Debug.LogError("SpriteRenderer bileþeni bulunamadý. Lütfen bu script'i bir SpriteRenderer içeren nesneye ekleyin.");
         }
 
-        // EntitiesMovement referansýný kontrol et
         if (entitiesMovement == null)
         {
             Debug.LogError("EntitiesMovement referansý atanmadý. Lütfen Inspector üzerinden atayýn.");
@@ -32,7 +30,6 @@ public class BellHighLight : MonoBehaviour
 
     void OnMouseEnter()
     {
-        // Fare üzerine geldiðinde rengi deðiþtir
         if (spriteRenderer != null)
         {
             spriteRenderer.color = highlightColor;
@@ -41,7 +38,6 @@ public class BellHighLight : MonoBehaviour
 
     void OnMouseExit()
     {
-        // Fare nesneden ayrýldýðýnda orijinal rengine dön
         if (spriteRenderer != null)
         {
             spriteRenderer.color = originalColor;
@@ -50,7 +46,6 @@ public class BellHighLight : MonoBehaviour
 
     void OnMouseDown()
     {
-        // Fare ile týklanýldýðýnda hareketi baþlat
         if (entitiesMovement != null && !entitiesMovement.IsMoving())
         {
             entitiesMovement.TriggerMovement();

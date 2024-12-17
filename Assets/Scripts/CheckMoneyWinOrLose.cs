@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class CheckMoneyWinOrLose : MonoBehaviour
 {
-    [SerializeField] private GameObject x; // Para miktarýný kontrol edeceðimiz obje
-    [SerializeField] private int enoughGold = 19; // Kazanmak için gerekli minimum altýn miktarý
+    [SerializeField] private GameObject x;
+    [SerializeField] private int enoughGold = 19; 
 
-    private int currentGold; // x objesindeki para miktarý
+    private int currentGold;
 
     void Start()
     {
@@ -32,8 +32,6 @@ public class CheckMoneyWinOrLose : MonoBehaviour
                 Debug.LogError("x objesinde GoldManager bileþeni bulunamadý!");
                 return;
             }
-
-            // Altýn miktarýný kontrol et
             if (currentGold < enoughGold)
             {
                 Debug.Log("Kaybettin!");

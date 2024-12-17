@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ShowNextPaper : MonoBehaviour
 {
-    private SpriteRenderer spriteRenderer; // SpriteRenderer bileþeni
-    private Color originalColor; // Orijinal rengi
-    [SerializeField] private Color highlightColor = new Color(1f, 1f, 0.5f); // Hafif sarý renk
+    private SpriteRenderer spriteRenderer;
+    private Color originalColor;
+    [SerializeField] private Color highlightColor = new Color(1f, 1f, 0.5f); 
     [SerializeField] GameObject otherPaper;
     void Start()
     {
@@ -17,8 +17,6 @@ public class ShowNextPaper : MonoBehaviour
         }
         otherPaper.SetActive(false);
     }
-
-    // Update is called once per frame
     void Update()
     {
         

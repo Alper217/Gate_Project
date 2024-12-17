@@ -2,18 +2,17 @@ using UnityEngine;
 
 public class ChainController : MonoBehaviour
 {
-    private SpriteRenderer spriteRenderer; // Zincirin SpriteRenderer bileþeni
-    private Color originalColor; // Orijinal rengi
-    [SerializeField] private Color highlightColor = new Color(1f, 1f, 0.5f); // Hafif sarý renk
-    [SerializeField] private float pullDistance = 2f; // Zincirin yukarý çekileceði mesafe
-    [SerializeField] private float pullSpeed = 5f; // Zincirin çekilme ve geri dönme hýzý
+    private SpriteRenderer spriteRenderer;
+    private Color originalColor;
+    [SerializeField] private Color highlightColor = new Color(1f, 1f, 0.5f);
+    [SerializeField] private float pullDistance = 2f;
+    [SerializeField] private float pullSpeed = 5f; 
 
-    private Vector3 initialPosition; // Zincirin baþlangýç pozisyonu
-    private bool isPulled = false; // Zincir þu anda çekiliyor mu?
+    private Vector3 initialPosition; 
+    private bool isPulled = false;
 
     void Start()
     {
-        // SpriteRenderer bileþenini al ve orijinal rengi sakla
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
         {
@@ -23,14 +22,11 @@ public class ChainController : MonoBehaviour
         {
             Debug.LogError("SpriteRenderer bileþeni bulunamadý. Lütfen bu script'i bir SpriteRenderer içeren zincir nesnesine ekleyin.");
         }
-
-        // Zincirin baþlangýç pozisyonunu kaydet
         initialPosition = transform.position;
     }
 
     void OnMouseEnter()
     {
-        // Fare üzerine geldiðinde rengi deðiþtir
         if (spriteRenderer != null)
         {
             spriteRenderer.color = highlightColor;
@@ -39,7 +35,6 @@ public class ChainController : MonoBehaviour
 
     void OnMouseExit()
     {
-        // Fare nesneden ayrýldýðýnda orijinal rengine dön
         if (spriteRenderer != null)
         {
             spriteRenderer.color = originalColor;
@@ -48,7 +43,6 @@ public class ChainController : MonoBehaviour
 
     void OnMouseDown()
     {
-        // Zinciri çekmeye baþlat
         if (!isPulled)
         {
             StartCoroutine(PullChain());

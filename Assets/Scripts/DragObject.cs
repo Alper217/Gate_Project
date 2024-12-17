@@ -4,21 +4,19 @@ public class DragObject : MonoBehaviour
 {
     private Vector3 offset;
     private Camera mainCamera;
-    private Vector3 initialPosition; // Baþlangýç pozisyonu
-    [SerializeField] private GameObject onBoardObject; // Masadaki obje
-    [SerializeField] private GameObject targetObject;  // Sürüklenebilir obje
+    private Vector3 initialPosition; 
+    [SerializeField] private GameObject onBoardObject;
+    [SerializeField] private GameObject targetObject;
 
     void Start()
     {
         mainCamera = Camera.main;
-        initialPosition = transform.position; // Sürüklenebilir objenin baþlangýç pozisyonunu kaydet
+        initialPosition = transform.position; 
     }
-
     void OnMouseDown()
     {
         offset = transform.position - GetMouseWorldPosition();
     }
-
     void OnMouseDrag()
     {
         transform.position = GetMouseWorldPosition() + offset;
@@ -26,17 +24,13 @@ public class DragObject : MonoBehaviour
 
     void OnMouseUp()
     {
-        // Obje býrakýldýðýnda baþlangýç pozisyonuna döndür
         transform.position = initialPosition;
-
-        // Masa objesini aç, sürüklenebilir objeyi kapat
         if (onBoardObject != null && targetObject != null)
         {
             onBoardObject.SetActive(true);
             targetObject.SetActive(false);
         }
     }
-
     Vector3 GetMouseWorldPosition()
     {
         Vector3 mouseScreenPosition = Input.mousePosition;

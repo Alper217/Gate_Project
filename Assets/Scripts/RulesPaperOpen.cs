@@ -5,14 +5,13 @@ using UnityEngine;
 public class RulesPaperOpen : MonoBehaviour
 {
     [SerializeField] public GameObject ruleIcon;
-    [SerializeField] private GameObject ruleObject; // Açýlacak kitap objesi
-    private SpriteRenderer spriteRenderer; // SpriteRenderer bileþeni
-    private Color originalColor; // Orijinal rengi
-    [SerializeField] private Color highlightColor = new Color(1f, 1f, 0.5f); // Hafif sarý renk
+    [SerializeField] private GameObject ruleObject;
+    private SpriteRenderer spriteRenderer; 
+    private Color originalColor;
+    [SerializeField] private Color highlightColor = new Color(1f, 1f, 0.5f);
 
     void Start()
     {
-        // SpriteRenderer bileþenini al ve orijinal rengi sakla
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
         {
@@ -26,7 +25,6 @@ public class RulesPaperOpen : MonoBehaviour
 
     void OnMouseEnter()
     {
-        // Fare üzerine geldiðinde rengi deðiþtir
         if (spriteRenderer != null)
         {
             spriteRenderer.color = highlightColor;
@@ -35,7 +33,6 @@ public class RulesPaperOpen : MonoBehaviour
 
     void OnMouseExit()
     {
-        // Fare nesneden ayrýldýðýnda orijinal rengine dön
         if (spriteRenderer != null)
         {
             spriteRenderer.color = originalColor;
@@ -44,7 +41,6 @@ public class RulesPaperOpen : MonoBehaviour
 
     void OnMouseDown()
     {
-        // Fare ile týklanýrsa kitap objesini aktif et
         if (ruleObject != null)
         {
             ruleObject.SetActive(true);

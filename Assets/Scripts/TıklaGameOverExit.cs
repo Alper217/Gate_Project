@@ -3,14 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class SceneChanger : MonoBehaviour
 {
-    [SerializeField] private string sceneName; // Hedef sahnenin adı (Inspector'dan ayarlanabilir)
+    [SerializeField] private string sceneName;
 
-    // Nesneye tıklanınca çalışır
     private void OnMouseDown()
     {
-        if (!string.IsNullOrEmpty(sceneName)) // Sahne adı boş değilse
+        if (!string.IsNullOrEmpty(sceneName)) 
         {
-            SceneManager.LoadScene(sceneName); // Belirtilen sahneye geç
+            SceneManager.LoadScene(sceneName);
         }
         else
         {

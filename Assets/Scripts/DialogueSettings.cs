@@ -12,22 +12,17 @@ public class DialogueSettings : MonoBehaviour
     {
         for (int i = 0; i < buttons.Length; i++)
         {
-            int index = i;  // Buton index'ini sabitlemek için
+            int index = i;
             Button button = buttons[i].GetComponent<Button>();
-            button.onClick.AddListener(() => OnButtonClicked(index));  // Buton týklandýðýnda OnButtonClicked metodu çaðrýlacak
+            button.onClick.AddListener(() => OnButtonClicked(index));
         }
     }
-
-    // Butona týklanýnca çaðrýlacak metod
     void OnButtonClicked(int index)
     {
-        // Önce tüm dialogBox'larý kapatalým
         foreach (var dialogBox in dialogBoxes)
         {
             dialogBox.SetActive(false);
         }
-
-        // Ardýndan, týklanan butonun index'ine karþýlýk gelen dialogBox'ý açalým
         if (index >= 0 && index < dialogBoxes.Length)
         {
             dialogBoxes[index].SetActive(true);

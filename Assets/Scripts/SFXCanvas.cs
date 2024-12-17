@@ -12,7 +12,6 @@ public class SFXCanvas : MonoBehaviour
         src.clip = sfx1;
         src.Play();
     }
-
     public void button2()
     {    
         src.clip = sfx2;

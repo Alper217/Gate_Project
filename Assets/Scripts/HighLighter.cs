@@ -5,13 +5,12 @@ using UnityEngine;
 public class HighLighter : MonoBehaviour
 {
     [SerializeField] public GameObject Icons;
-    private SpriteRenderer spriteRenderer; // SpriteRenderer bileþeni
-    private Color originalColor; // Orijinal rengi
+    private SpriteRenderer spriteRenderer; 
+    private Color originalColor;
     [SerializeField] private Color highlightColor = new Color(1f, 1f, 0.5f); // Hafif sarý renk
 
     void Start()
     {
-        // SpriteRenderer bileþenini al ve orijinal rengi sakla
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
         {
@@ -25,7 +24,6 @@ public class HighLighter : MonoBehaviour
 
     void OnMouseEnter()
     {
-        // Fare üzerine geldiðinde rengi deðiþtir
         if (spriteRenderer != null)
         {
             spriteRenderer.color = highlightColor;
@@ -34,7 +32,6 @@ public class HighLighter : MonoBehaviour
 
     void OnMouseExit()
     {
-        // Fare nesneden ayrýldýðýnda orijinal rengine dön
         if (spriteRenderer != null)
         {
             spriteRenderer.color = originalColor;

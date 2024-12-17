@@ -39,7 +39,7 @@ public class Dialogues : MonoBehaviour
     void StartDialogue()
     {
         index = 0;
-        textComponent.text = string.Empty; // �lk ba�ta metni temizle
+        textComponent.text = string.Empty;
         StartCoroutine(TypeLine());
 
     }
@@ -59,7 +59,7 @@ public class Dialogues : MonoBehaviour
         if (index < lines.Length - 1)
         {
             index++;
-            textComponent.text = string.Empty;  // Yeni sat�ra ge�meden �nce metni temizle
+            textComponent.text = string.Empty;
             StartCoroutine(TypeLine());
             if (index > 0)
             {
@@ -70,7 +70,7 @@ public class Dialogues : MonoBehaviour
         }
         else
         {
-            gameObject.SetActive(false);  // Dialog bitti�inde nesneyi devre d��� b�rak
+            gameObject.SetActive(false); 
         }
 
     }

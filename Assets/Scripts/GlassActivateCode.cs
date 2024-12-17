@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class GlassActivateCode : MonoBehaviour
 {
-    [SerializeField] public GameObject onBoardObject; // Masadaki obje
-    [SerializeField] public GameObject targetObject;  // S�r�klenebilir obje
+    [SerializeField] public GameObject onBoardObject;
+    [SerializeField] public GameObject targetObject;
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
-    [SerializeField] private Color highlightColor = new Color(1f, 1f, 0.5f); // Sar� renk
+    [SerializeField] private Color highlightColor = new Color(1f, 1f, 0.5f);
 
     void Start()
     {
@@ -23,7 +23,6 @@ public class GlassActivateCode : MonoBehaviour
 
     void OnMouseEnter()
     {
-        // Fare �zerine geldi�inde rengi de�i�tir
         if (spriteRenderer != null)
         {
             spriteRenderer.color = highlightColor;
@@ -32,7 +31,6 @@ public class GlassActivateCode : MonoBehaviour
 
     void OnMouseExit()
     {
-        // Fare nesneden ayr�ld���nda orijinal rengine d�n
         if (spriteRenderer != null)
         {
             spriteRenderer.color = originalColor;
@@ -41,7 +39,6 @@ public class GlassActivateCode : MonoBehaviour
 
     void OnMouseDown()
 {
-    // Tıklanınca masa objesini kapat, sürüklenebilir objeyi aç
     if (onBoardObject != null && targetObject != null)
     {
         onBoardObject.SetActive(false);

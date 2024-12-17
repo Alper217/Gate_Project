@@ -8,14 +8,13 @@ public class PriceCheckController : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI textMeshProUGUI;
     public TextMeshProUGUI sacText;
-    [SerializeField] private GameObject animatedObject; // Animasyon yapacak GameObject
+    [SerializeField] private GameObject animatedObject;
     private ButtonSettings buttonSettings;
     private EntitiesMovement entitiesMovement;
     private int totalAmount;
 
     void Start()
     {
-        // EntitiesMovement scriptini sahnede buluyoruz
         entitiesMovement = FindObjectOfType<EntitiesMovement>();
         buttonSettings = FindObjectOfType<ButtonSettings>();
         if (entitiesMovement == null)
@@ -26,7 +25,7 @@ public class PriceCheckController : MonoBehaviour
 
     public void PriceOkey()
     {
-        int price = Convert.ToInt32(textMeshProUGUI.text); // textMeshProUGUI.text'ini int'e çeviriyoruz
+        int price = Convert.ToInt32(textMeshProUGUI.text); 
         if (entitiesMovement.objects == null || entitiesMovement.objects.Length == 0)
         {
             Debug.LogError("Objects array is empty or not assigned.");
@@ -83,7 +82,6 @@ public class PriceCheckController : MonoBehaviour
         Vector3 originalPosition = obj.transform.position;
         Vector3 targetPosition = originalPosition + new Vector3(0, -2, 0);
 
-        // Yukarý çýkma
         float elapsedTime = 0f;
         float duration = 0.5f; // Animasyon süresi
 
@@ -94,10 +92,8 @@ public class PriceCheckController : MonoBehaviour
             yield return null;
         }
 
-        // Pozisyonu tamamen hedef pozisyona ayarla
         obj.transform.position = targetPosition;
 
-        // Aþaðý dönme
         elapsedTime = 0f;
         while (elapsedTime < duration)
         {
@@ -105,8 +101,6 @@ public class PriceCheckController : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
-        // Pozisyonu tamamen baþlangýç pozisyonuna ayarla
         obj.transform.position = originalPosition;
     }
 }
