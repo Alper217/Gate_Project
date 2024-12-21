@@ -17,15 +17,6 @@ public class BellHighLight : MonoBehaviour
         {
             originalColor = spriteRenderer.color;
         }
-        else
-        {
-            Debug.LogError("SpriteRenderer bileþeni bulunamadý. Lütfen bu script'i bir SpriteRenderer içeren nesneye ekleyin.");
-        }
-
-        if (entitiesMovement == null)
-        {
-            Debug.LogError("EntitiesMovement referansý atanmadý. Lütfen Inspector üzerinden atayýn.");
-        }
     }
 
     void OnMouseEnter()

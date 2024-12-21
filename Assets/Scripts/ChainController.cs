@@ -18,10 +18,6 @@ public class ChainController : MonoBehaviour
         {
             originalColor = spriteRenderer.color;
         }
-        else
-        {
-            Debug.LogError("SpriteRenderer bileþeni bulunamadý. Lütfen bu script'i bir SpriteRenderer içeren zincir nesnesine ekleyin.");
-        }
         initialPosition = transform.position;
     }
 
